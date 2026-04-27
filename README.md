@@ -1,5 +1,3 @@
-<a id="Top" />
-
 # CRogueLite
 
 CRogueLite is a small, extendable console-based roguelite demo written in C++. The project is intended to be an introduction to C++ to enable the ability to iterate on gameplay, UI, and architecture.
@@ -11,7 +9,7 @@ Navigate a simple dungeon through a text-based UI. Explore, manage a party (of u
 - Start at the main menu.
 - Choosing 'Play' opens the 'Play' menu where a new run can be started.
 - Choosing 'Load' opens a Loading Screen where an old run can be continued.
-- In a full game, 'Play' will lead to a dungeon loop: generate a level -> present options (move, inspect, inventory, fight, flee) -> resolve player action -> update world and render -> repeat until death/victory/exit.
+- In a full game, 'Play' will lead to a dungeon loop: generate a level → present options (move, inspect, inventory, fight, flee) → resolve player action → update world and render → repeat until death/victory/exit.
 - Menus will return Booleans to indicate navigation/combat.
 
 ## Features (Planned)
@@ -55,7 +53,7 @@ Navigate a simple dungeon through a text-based UI. Explore, manage a party (of u
 ## Notes for development
 - To Be Developed
 
-<-- Back to [top](#top)
+<-- Back to [Top](#croguelite)
 
 
 

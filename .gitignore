@@ -370,6 +370,7 @@ nbdist/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/editor.xml
 
 # Generated files
 .idea/**/contentModel.xml
@@ -999,3 +1000,4 @@ dkms.conf
 *.uf2
 # Raspberry Pi Pico disassembler file
 *.dis
+

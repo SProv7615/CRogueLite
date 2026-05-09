@@ -1,65 +1,60 @@
-<a id="top" />
-
 # Project Roadmap
 
 This doc contains design notes and planned dev stages for the creation of this game.
 
-<-- Back to [README](README.md)
+Go to [README.md](README.md)
 
 ---
 
-<a id="phase-1" />
-
-## Phase 1 - Foundations (TODO: MVP?)
-
-<-- Back to [README](README.md)
-
----
-
-<a id="phase-2" />
-
-## Phase 2 - Map Creation (TODO: MVP?)
-
-<-- Back to [README](README.md)
+## Project Development Phases
+- [Phase 1: Foundations](#phase-1-foundations)
+- [Phase 2: Map Creation](#phase-2-map-creation)
+- [Phase 3: Player Identity](#phase-3-player-identity)
+- [Phase 4: Combat](#phase-4-combat)
+- [Phase 5: Inventory and Items](#phase-5-inventory-and-items)
+- [Phase 6: Save Persistence](#phase-6-persistence)
+- [Phase 7: Polish](#phase-7-polish)
 
 ---
 
-<a id="phase-3" />
+## Phase 1: Foundations
 
-## Phase 3 - Player Identity (TODO: MVP?)
-
-<-- Back to [README](README.md)
+[Project Roadmap](#project-development-phases)
 
 ---
 
-<a id="phase-4" />
+## Phase 2: Map Creation
 
-## Phase 4 - Combat (TODO: MVP?)
-
-<-- Back to [README](README.md)
+[Project Roadmap](#project-development-phases)
 
 ---
 
-<a id="phase-5" />
+## Phase 3: Player Identity
 
-## Phase 5 - Inventory and Items (TODO: MVP?)
-
-<-- Back to [README](README.md)
+[Project Roadmap](#project-development-phases)
 
 ---
 
-<a id="phase-6" />
+## Phase 4: Combat
 
-## Phase 6 - Persistence (TODO: MVP?)
-
-<-- Back to [README](README.md)
+[Project Roadmap](#project-development-phases)
 
 ---
 
-<a id="phase-7" />
+## Phase 5: Inventory and Items
 
-## Phase 7 - Polish (TODO: MVP?)
+[Project Roadmap](#project-development-phases)
 
-<-- Back to [README](README.md)
+---
 
-<-- Back to [TOP](#top)
+## Phase 6: Persistence
+
+[Project Roadmap](#project-development-phases)
+
+---
+
+## Phase 7: Polish
+
+[Project Roadmap](#project-development-phases)
+
+<-- Back to [TOP](#project-roadmap)

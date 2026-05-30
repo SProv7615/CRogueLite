@@ -3,4 +3,6 @@ project(CRogueLite)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(CRogueLite main.cpp)
+add_executable(CRogueLite default_main.cpp
+        main.cpp
+)

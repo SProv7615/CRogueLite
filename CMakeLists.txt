@@ -12,6 +12,7 @@ find_package(SFML COMPONENTS Graphics Window System CONFIG REQUIRED)
 # 2. Match this to your actual executable name and source file
 add_executable(CRogueLite default_main.cpp
         main.cpp
+        helpers/Logger.h
 )
 # 3. Explicitly map the SFML targets to your executable
 target_link_libraries(CRogueLite PRIVATE

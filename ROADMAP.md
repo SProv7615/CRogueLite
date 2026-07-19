@@ -29,6 +29,7 @@ Go to [README.md](README.md)
 7. Game State Management - create a state machine to switch states from one place
 8. Asset Pipeline - ? research caching and async loading of resources like JSON data files
 9. Logging & Diagnostics - baseline time per state processes and review periodically, log it all
+  - Logger added 7/19/26, no diagnostics yet
 10. Build Discipline - warnings as errors!, naming conventions, folder structure
 
 [Project Roadmap](#project-development-phases)

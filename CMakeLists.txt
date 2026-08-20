@@ -24,3 +24,10 @@ target_link_libraries(CRogueLite PRIVATE
         SFML::Window
         SFML::System
 )
+
+# 4. Copy assets to the build directory after each build
+add_custom_command(TARGET CRogueLite POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:CRogueLite>/assets
+)

@@ -4,14 +4,33 @@
 
 MainMenuState MainMenuState::m_MainMenuState;
 
+static sf::Font font_cedar_textbox;
+static sf::Font font_bitcount_title;
+static sf::Font font_loveya_menu;
+
+static void DrawButton(sf::RenderWindow& window, const std::string& label, const sf::Vector2f position, const sf::Vector2f size) {
+    sf::RectangleShape button(size);
+    button.setPosition(position);
+    button.setFillColor(sf::Color::Red);
+
+    sf::Text text(font_loveya_menu, label, 30);
+    text.setFillColor(sf::Color::White);
+    const sf::FloatRect bounds = text.getLocalBounds();
+    text.setOrigin({bounds.position.x + bounds.size.x / 2.f, bounds.position.y + bounds.size.y / 2.f});
+    text.setPosition({position.x + size.x / 2.f, position.y + size.y / 2.f});
+
+    window.draw(button);
+    window.draw(text);
+}
+
 void MainMenuState::Init() {
-    if (sf::Font font_cedar_textbox; !font_cedar_textbox.openFromFile("C:/Users/Garpug/source/repos/CRogueLite/helpers/CedarvilleCursive-Regular.ttf")) {
+    if (!font_cedar_textbox.openFromFile("assets/fonts/CedarvilleCursive-Regular.ttf")) {
         LOG_ERROR("Missing font file");
     }
-    if (sf::Font font_bitcount_title; !font_bitcount_title.openFromFile("C:/Users/Garpug/source/repos/CRogueLite/helpers/BitcountGridDouble-VariableFont.ttf")) {
+    if (!font_bitcount_title.openFromFile("assets/fonts/BitcountGridDouble-VariableFont.ttf")) {
         LOG_ERROR("Missing font file");
     }
-    if (sf::Font font_loveya_menu; !font_loveya_menu.openFromFile("C:/Users/Garpug/source/repos/CRogueLite/helpers/LoveYaLikeASister-Regular.ttf")) {
+    if (!font_loveya_menu.openFromFile("assets/fonts/LoveYaLikeASister-Regular.ttf")) {
         LOG_ERROR("Missing font file");
     }
 }
@@ -29,102 +48,67 @@ void MainMenuState::Resume() {
 }
 
 void MainMenuState::HandleEvents(GameEngine* game) {
-    // check all the window's events that were triggered since the last iteration of the loop
-    while (const std::optional event = game->window->pollEvent())
-    {
-        if (event->is<sf::Event::Closed>())
-        {
+    while (const std::optional event = game->window->pollEvent()) {
+        if (event->is<sf::Event::Closed>()) {
             LOG_INFO("Game Closed");
+            game->Quit();
             game->window->close();
         }
     }
 }
 
-void MainMenuState::Update(GameEngine* game) {
-    game->Update();
+void MainMenuState::Update(GameEngine*) {
 }
+
 void MainMenuState::Draw(GameEngine* game) {
-    game->Draw();
-}
+    const float w = static_cast<float>(game->window->getSize().x);
 
-// TODO: populate MainMenu Draw with this, abstracting out functions and common code as needed for simplicity and clarity
-/*
-    sf::Text text(font_cedar_textbox, "Hello World!!", 50);
-    sf::Text title(font_bitcount_title, "CRogueLite", 50);
-    sf::Text menu_start(font_loveya_menu, "start", 50);
-    sf::Text menu_load(font_loveya_menu, "load", 50);
-    sf::Text menu_options(font_loveya_menu, "options", 50);
-    sf::Text menu_exit(font_loveya_menu, "exit", 50);
-    text.setFillColor(sf::Color::White);
-    title.setFillColor(sf::Color::Black);
-    menu_start.setFillColor(sf::Color::White);
-    menu_load.setFillColor(sf::Color::White);
-    menu_options.setFillColor(sf::Color::White);
-    menu_exit.setFillColor(sf::Color::White);
-
-    // define a 120x50 rectangle
-    sf::RectangleShape textbox_rectangle({window.getSize().x * 1.0f, 200.f});
-    sf::RectangleShape map_rectangle({window.getSize().x * 1.0f, 400.f});
-    sf::RectangleShape menu_rectangle({window.getSize().x * 0.25f, 300.f});
-    sf::RectangleShape menu_start_button({menu_rectangle.getSize().x * 4 / 5.0f, menu_rectangle.getSize().y / 5.0f});
-    sf::RectangleShape menu_load_button({menu_rectangle.getSize().x * 4 / 5.0f, menu_rectangle.getSize().y / 5.0f});
-    sf::RectangleShape menu_options_button({menu_rectangle.getSize().x * 4 / 5.0f, menu_rectangle.getSize().y / 5.0f});
-    sf::RectangleShape menu_exit_button({menu_rectangle.getSize().x * 4 / 5.0f, menu_rectangle.getSize().y / 5.0f});
-    textbox_rectangle.setPosition({0.f, 400.f});
+    // Map area (top)
+    sf::RectangleShape map_rectangle({w, 400.f});
     map_rectangle.setPosition({0.f, 0.f});
-    menu_rectangle.setPosition({300.f, 50.f});
-    menu_start_button.setPosition({menu_rectangle.getPosition().x + (menu_rectangle.getSize().x * 0.1f), menu_rectangle.getPosition().y + menu_rectangle.getSize().y / 25});
-    // set the shape color to green
-    textbox_rectangle.setFillColor(sf::Color::Black);
     map_rectangle.setFillColor(sf::Color::White);
+
+    // Textbox (bottom)
+    sf::RectangleShape textbox_rectangle({w, 200.f});
+    textbox_rectangle.setPosition({0.f, 400.f});
+    textbox_rectangle.setFillColor(sf::Color::Black);
+
+    sf::Text helloText(font_cedar_textbox, "Hello World!!", 50);
+    helloText.setFillColor(sf::Color::White);
+    const sf::FloatRect textBounds = helloText.getLocalBounds();
+    helloText.setOrigin({textBounds.position.x + textBounds.size.x / 2.f, textBounds.position.y + textBounds.size.y / 2.f});
+    helloText.setPosition({w / 2.f, 500.f}); // center of textbox (400 + 200/2)
+
+    // Menu panel (centered horizontally)
+    const sf::Vector2f menuSize = {w * 0.25f, 300.f};
+    const sf::Vector2f menuPos = {(w - menuSize.x) / 2.f, 50.f};
+    sf::RectangleShape menu_rectangle(menuSize);
+    menu_rectangle.setPosition(menuPos);
     menu_rectangle.setFillColor(sf::Color(100, 100, 100));
-    menu_start_button.setFillColor(sf::Color::Red);
 
-    // 1. Get the local bounds of the text (before any scaling)
-    sf::FloatRect textBounds = text.getLocalBounds();
-    sf::FloatRect titleBounds = title.getLocalBounds();
-    sf::FloatRect menuStartBounds = menu_start.getLocalBounds();
-    // sf::FloatRect menuLoadBounds = menu_load.getLocalBounds();
-    // sf::FloatRect menuOptionsBounds = menu_options.getLocalBounds();
-    // sf::FloatRect menuExitBounds = menu_exit.getLocalBounds();
+    // Title above menu panel
+    sf::Text title(font_bitcount_title, "CRogueLite", 50);
+    title.setFillColor(sf::Color::Black);
+    const sf::FloatRect titleBounds = title.getLocalBounds();
+    title.setOrigin({titleBounds.position.x + titleBounds.size.x / 2.f, titleBounds.position.y + titleBounds.size.y / 2.f});
+    title.setPosition({menuPos.x + menuSize.x / 2.f, menuPos.y - 25.f});
 
-    // 4. Center the text perfectly inside the shape
-    //sf::FloatRect globalBounds = text.getGlobalBounds();
-    text.setOrigin({textBounds.position.x + textBounds.size.x / 2.0f, textBounds.position.y + textBounds.size.y / 2.0f});
-    text.setPosition({(textbox_rectangle.getPosition().x + textbox_rectangle.getSize().x / 2.0f),(textbox_rectangle.getPosition().y + textbox_rectangle.getSize().y / 2.0f)});
+    // Buttons stacked in menu panel
+    const sf::Vector2f buttonSize = {menuSize.x * (4.f / 5.f), menuSize.y / 5.f};
+    float buttonX = menuPos.x + menuSize.x * 0.1f;
+    const float padding = menuSize.y / 25.f; // 12px for a 300px menu
 
-    // Title
-    //title.setOrigin({window.getPosition().x + window.getSize().x / 2.0f, window.getPosition().y + window.getSize().y / 2.0f});
-    //title.setPosition({window.getPosition().x + window.getSize().x / 2.0f, window.getPosition().y + window.getSize().y / 2.0f});
-    title.setOrigin({titleBounds.position.x + titleBounds.size.x / 2.0f, titleBounds.position.y + titleBounds.size.y / 2.0f});
-    title.setPosition({(menu_rectangle.getPosition().x + menu_rectangle.getSize().x / 2.0f),(menu_rectangle.getPosition().y - 25)});
+    game->window->clear(sf::Color(133, 255, 165));
+    game->window->draw(map_rectangle);
+    game->window->draw(menu_rectangle);
+    game->window->draw(textbox_rectangle);
+    game->window->draw(title);
+    game->window->draw(helloText);
 
-    //Menu Start
-    menu_start.setOrigin({menuStartBounds.position.x + menuStartBounds.size.x / 2.0f, menuStartBounds.position.y + menuStartBounds.size.y / 2.0f});
-    menu_start.setPosition({(menu_start_button.getPosition().x + menu_start_button.getSize().x / 2.0f),(menu_start_button.getPosition().y + menu_start_button.getSize().y / 2.0f)});
-
-
-    // run the program as long as the window is open
-    while (window.isOpen()) {
-        // check all the window's events that were triggered since the last iteration of the loop
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
-                LOG_INFO("Game Closed");
-                window.close();
-            }
-        }
-        window.clear(sf::Color(133,255,165));
-        window.draw(map_rectangle);
-        window.draw(menu_rectangle);
-        window.draw(textbox_rectangle);
-        window.draw(menu_start_button);
-        window.draw(menu_start);
-        window.draw(text);
-        window.draw(title);
-        window.display();
+    const std::string buttonLabels[] = {"start", "load", "options", "exit"};
+    for (int i = 0; i < 4; ++i) {
+        float y = menuPos.y + padding + static_cast<float>(i) * (buttonSize.y + padding);
+        DrawButton(*game->window, buttonLabels[i], {buttonX, y}, buttonSize);
     }
-    LOG_INFO("--- Exiting main loop ---");
-    return 0;
- */
+    game->window->display();
+}

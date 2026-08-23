@@ -17,6 +17,8 @@ add_executable(CRogueLite MainMenuState.cpp
         helpers/GameState.h
         GameEngine.cpp
         helpers/MainMenuState.h
+        helpers/Button.h
+        Button.cpp
 )
 # 3. Explicitly map the SFML targets to your executable
 target_link_libraries(CRogueLite PRIVATE

@@ -26,7 +26,6 @@ int main()
     // main loop
     LOG_INFO("Initializing the main game loop");
     while (game.Running()) {
-        // TODO: bug: game.Running is either not always true, or there's an exit because the window opens then closes immediately
         game.HandleEvents();
         game.Update();
         game.Draw();

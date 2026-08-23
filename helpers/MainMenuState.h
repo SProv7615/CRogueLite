@@ -1,7 +1,10 @@
 #ifndef CROGUELITE_MAINMENUSTATE_H
 #define CROGUELITE_MAINMENUSTATE_H
 
+#include "Button.h"
 #include "GameState.h"
+
+#include <vector>
 
 class MainMenuState : public GameState {
 public:
@@ -24,6 +27,8 @@ protected:
 
 private:
     static MainMenuState m_MainMenuState;
+
+    std::vector<Button> m_buttons;
 };
 
 #endif //CROGUELITE_MAINMENUSTATE_H

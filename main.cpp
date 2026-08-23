@@ -1,5 +1,6 @@
 #include "helpers/Logger.h"
-#include <SFML/Graphics.hpp>
+#include "helpers/GameEngine.h"
+#include "helpers/MainMenuState.h"
 
 // TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 
@@ -10,24 +11,26 @@ int main()
 
     LOG_INFO("--- Creating new World ---");
 
-    sf::RenderWindow window(
-        sf::VideoMode({800, 600}),
-        "CRogueLite"
-        );
-    while (window.isOpen())
-    {
-        while (const auto event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
-                LOG_INFO("Game Closed");
-                window.close();
-            }
-        }
-        window.clear();
-        window.display();
+    //LOG_INFO("Creating the home text");
+
+    GameEngine game;
+
+    // Initialize the game engine
+    LOG_INFO("Initializing the game engine");
+    game.Init("CRogueLite");
+
+    // Load the main menu
+    LOG_INFO("Loading the main menu");
+    game.ChangeState(MainMenuState::Instance());
+
+    // main loop
+    LOG_INFO("Initializing the main game loop");
+    while (game.Running()) {
+        game.HandleEvents();
+        game.Update();
+        game.Draw();
     }
-    LOG_INFO("Exiting main loop");
+    game.CleanUp();
     return 0;
     // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
 }

@@ -10,13 +10,26 @@ add_compile_options(-Wall -Wextra -Werror)
 find_package(SFML COMPONENTS Graphics Window System CONFIG REQUIRED)
 
 # 2. Match this to your actual executable name and source file
-add_executable(CRogueLite default_main.cpp
+add_executable(CRogueLite MainMenuState.cpp
         main.cpp
         helpers/Logger.h
+        helpers/GameEngine.h
+        helpers/GameState.h
+        GameEngine.cpp
+        helpers/MainMenuState.h
+        helpers/Button.h
+        Button.cpp
 )
 # 3. Explicitly map the SFML targets to your executable
 target_link_libraries(CRogueLite PRIVATE
         SFML::Graphics
         SFML::Window
         SFML::System
+)
+
+# 4. Copy assets to the build directory after each build
+add_custom_command(TARGET CRogueLite POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:CRogueLite>/assets
 )
